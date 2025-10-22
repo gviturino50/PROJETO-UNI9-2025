@@ -1,0 +1,266 @@
+.logo img {
+    width: 100%; 
+    max-width: 600px; /* Ajuste conforme o tamanho ideal */
+    height: auto;
+    object-fit: contain;
+}
+header {
+    background-color: #111; /* ou qualquer cor que você esteja usando */
+    padding: 5px 0; /* altura vertical reduzida */
+  }
+  
+  header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  header .logo img {
+    height: 300px; /* diminui o tamanho da imagem/logo */
+    width: auto;
+    border-radius: 5px;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  header ul {
+    color: rgb(222, 217, 213);
+    text-decoration: none;
+    font-size: 25px; /* tamanho de fonte menor */
+    padding: 15px;
+    text-align: center;
+    transition: color 0.3s;
+    font-weight: bold;
+  }
+  
+  header nav ul li a {
+    color: rgb(243, 116, 11);
+    text-decoration: none;
+    font-size: 18px; /* tamanho de fonte menor */
+    padding: 15px;
+    transition: color 0.3s;
+  }
+  
+  
+  header nav ul li a:hover {
+    color: #A0A0A0;
+  }
+    
+      
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0c163f;
+    color: #e6e2e2;
+    
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header */
+header {
+    background-color: #0c163f;
+    color: rgb(255, 249, 249);
+    padding: 10px 0;
+    box-shadow: 0px 10px 20px rgba(255, 251, 251, 0.7);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header nav ul {
+    display: flex;
+}
+
+header nav ul li {
+    list-style: none;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: rgb(248, 248, 248);
+    font-weight: bold;
+    text-transform: uppercase;
+
+
+}
+
+/* Hero Section */
+.hero {
+    background: url('IMAGEMS/Imagem do WhatsApp de 2025-03-25 à(s) 19.55.28_958daada.jpg') no-repeat center center;
+    background-size: cover; /* Faz a imagem cobrir toda a área do container sem distorcer */
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    
+}
+
+.hero-text h2 {
+    color: rgb(255, 255, 255);
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    color:rgb(255, 254, 254) ;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero .btn {
+background-color:#000000;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: rgb(255, 246, 246);
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* About Section */
+.about {
+    padding: 50px 0;
+    background: linear-gradient(to bottom, #000000 50%, #0c163f 100%);
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Models Section */
+/* Oculta as imagens inicialmente */
+.models .card img {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  /* Quando o mouse passa pela seção inteira, revela todas as imagens */
+  .models:hover .card img { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  .models:hover .card img {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+.models {
+    /* background-color; */
+    color: white;
+    padding: 50px 0;
+}
+
+.models h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.car-cards {
+    
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.card {
+    background-color: #000000;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0 4px 6px white (255, 255, 255, 0.1);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card h3 {
+    margin-top: 20px;
+    font-size: 1.8rem;
+}
+
+.card p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.card .btn {
+    background-color: #000000;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+/* Contact Section */
+.contact {
+    padding: 50px 0;
+    background-color: #000000;
+    text-align: center;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact input,
+.contact textarea {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #000000;
+}
+
+.contact button {
+    background-color:#ffffff ;
+    padding: 10px 20px;    
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: #000000;
+    color: #d6c6c6;
+    padding: 20px 0;
+    text-align: center;
+}
