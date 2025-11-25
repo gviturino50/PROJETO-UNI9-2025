@@ -22,10 +22,10 @@ jobs:
 
       - name: Criar base SQLite
         run: |
-          cd db
+          cd bd
           php -r "new PDO('sqlite:./database.sqlite3'); echo 'Banco criado';"
 
       - name: Testar conexão SQLite
         run: |
-          cd db
+          cd bd
           php -r "new PDO('sqlite:./database.sqlite3'); echo 'SQLite OK';"
