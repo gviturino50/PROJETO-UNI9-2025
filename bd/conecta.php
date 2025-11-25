@@ -2,11 +2,12 @@
 require_once 'config.php';//carrega apenas uma vez o arquivo config.php
 require_once 'cria_tabela_sqlite.php';
 
+$dbPath = __DIR__ . '/' . DATABASE_SQLITE;
 $pdo = null;
 
 try {
     if (DB_TYPE === 'sqlite') {
-        $pdo = new PDO('sqlite:' . DATABASE_SQLITE);
+        $pdo = new PDO('sqlite:' . $dbPath);
 
         // Cria tabela USER se não existir
         criaTabelaUsuario($pdo);

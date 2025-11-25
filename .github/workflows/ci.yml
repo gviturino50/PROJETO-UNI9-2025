@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  php-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Instalar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Verificar sintaxe PHP
+        run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+
+      - name: Criar base SQLite
+        run: |
+          cd db
+          php -r "new PDO('sqlite:./database.sqlite3'); echo 'Banco criado';"
+
+      - name: Testar conexão SQLite
+        run: |
+          cd db
+          php -r "new PDO('sqlite:./database.sqlite3'); echo 'SQLite OK';"
