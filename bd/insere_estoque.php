@@ -2,8 +2,9 @@
 session_start();
 
 // Verifica se o usuário está logado
-if (count($_SESSION)==0) {
-    header("Location: login.php?status=error&msg=Faça login primeiro");
+if (count($_SESSION) == 0) {
+    $msg = urlencode("Faça login primeiro");
+    header("Location: login.php?status=error&msg={$msg}");
     exit;
 }
 
@@ -17,22 +18,19 @@ $quantidade_min = intval($_POST['quantidade_min'] ?? 0);
 $id_user = $_SESSION['user_id'];
 
 try {
-    $query = "INSERT INTO estoque (id_user, nome, descricao, quantidade, quantidade_min)
-              VALUES (:id_user, :nome, :descricao, :quantidade, :quantidade_min)";
+    $sql = "INSERT INTO estoque (id_user, nome, descricao, quantidade, quantidade_min)
+            VALUES (?, ?, ?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
 
-    $stmt = $pdo->prepare($query);
-
-    $stmt->bindValue(':id_user', $id_user);
-    $stmt->bindValue(':nome', $nome);
-    $stmt->bindValue(':descricao', $descricao);
-    $stmt->bindValue(':quantidade', $quantidade, PDO::PARAM_INT);
-    $stmt->bindValue(':quantidade_min', $quantidade_min, PDO::PARAM_INT);
-
-    $stmt->execute();
-
-    $msg = urlencode("Item '$nome' cadastrado com sucesso!");
-    header("Location: ../estoque.php?status=success&msg={$msg}");
-    exit;
+    if ($stmt->execute([$id_user, $nome, $descricao, $quantidade, $quantidade_min])) {
+        $msg = urlencode("Item '$nome' cadastrado com sucesso!");
+        header("Location: ../estoque.php?status=success&msg={$msg}");
+        exit;
+    } else {
+        $msg = urlencode("Erro ao inserir o item.");
+        header("Location: ../estoque.php?status=error&msg={$msg}");
+        exit;
+    }
 
 } catch (PDOException $e) {
     $msg = urlencode("Erro ao inserir: " . $e->getMessage());

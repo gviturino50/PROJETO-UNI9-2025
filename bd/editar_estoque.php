@@ -2,19 +2,27 @@
 require_once 'config.php';
 require_once 'conecta.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $quantidade = $_POST['quantidade'];
-    $descricao = $_POST['descricao'];
+$id = $_POST['id'];
+$nome = $_POST['nome'];
+$quantidade = $_POST['quantidade'];
+$descricao = $_POST['descricao'];
 
+try {
     $sql = "UPDATE estoque SET nome=?, quantidade=?, descricao=? WHERE id_item=?";
     $stmt = $pdo->prepare($sql);
 
     if ($stmt->execute([$nome, $quantidade, $descricao, $id])) {
-        header("Location: ../estoque.php?msg=Item atualizado com sucesso");
+        $msg = urlencode("Item atualizado com sucesso");
+        header("Location: ../estoque.php?status=success&msg={$msg}");
         exit;
     } else {
-        echo "Erro ao atualizar o item.";
+        $msg = urlencode("Erro ao atualizar o item");
+        header("Location: ../estoque.php?status=error&msg={$msg}");
+        exit;
     }
+
+} catch (PDOException $e) {
+    $msg = urlencode("Erro ao atualizar: " . $e->getMessage());
+    header("Location: ../estoque.php?status=error&msg={$msg}");
+    exit;
 }

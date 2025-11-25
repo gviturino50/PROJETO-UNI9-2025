@@ -5,13 +5,27 @@ require_once 'conecta.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $sql = "DELETE FROM estoque WHERE id_item=?";
-    $stmt = $pdo->prepare($sql);
+    try {
+        $sql = "DELETE FROM estoque WHERE id_item=?";
+        $stmt = $pdo->prepare($sql);
 
-    if ($stmt->execute([$id])) {
-        header("Location: listar_estoque.php?msg=Item excluído com sucesso");
+        if ($stmt->execute([$id])) {
+            $msg = urlencode("Item excluído com sucesso");
+            header("Location: listar_estoque.php?status=success&msg={$msg}");
+            exit;
+        } else {
+            $msg = urlencode("Nenhum item foi excluído. O ID {$id} pode não existir.");
+            header("Location: listar_estoque.php?status=error&msg={$msg}");
+            exit;
+        }
+
+    } catch (PDOException $e) {
+        $msg = urlencode("Erro ao excluir o item: " . $e->getMessage());
+        header("Location: listar_estoque.php?status=error&msg={$msg}");
         exit;
-    } else {
-        echo "Erro ao excluir o item.";
     }
+} else {
+    $msg = urlencode("ID inválido para exclusão");
+    header("Location: listar_estoque.php?status=error&msg={$msg}");
+    exit;
 }

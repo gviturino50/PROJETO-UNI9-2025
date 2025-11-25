@@ -17,7 +17,7 @@ function criaTabelaEstoque(PDO $pdo) {
     quantidade INTEGER NOT NULL,
     quantidade_min INTEGER NOT NULL DEFAULT 0,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES user(id_user)
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
   )";
   $pdo->exec($query);
 }
