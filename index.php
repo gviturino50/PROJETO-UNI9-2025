@@ -9,9 +9,6 @@
 
   <?php
     include "topbar.php";
-
-    $_SESSION = [];
-    session_destroy();
   ?>
 
   <main class="flex flex-col gap-20 my-36 px-4 max-w-6xl mx-auto">

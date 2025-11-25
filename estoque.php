@@ -68,7 +68,7 @@ if (count($_SESSION)==0) {
 
           <div>
             <label class="block font-medium">Quantidade mínima</label>
-            <input type="number" name="quantidade_min" min="0" class="w-full border rounded-lg p-2" />
+            <input type="number" name="quantidade_min" min="1" class="w-full border rounded-lg p-2" />
           </div>
 
           <button
@@ -106,7 +106,7 @@ if (count($_SESSION)==0) {
 
           <div>
             <label class="block font-medium">Quantidade *</label>
-            <input type="number" name="quantidade" id="edit_quantidade" min="1" required class="w-full border rounded-lg p-2" />
+            <input type="number" name="quantidade" id="edit_quantidade" required class="w-full border rounded-lg p-2" />
           </div>
 
           <div>
@@ -161,61 +161,82 @@ function formatarDataHora(dataIso) {
 
 /* --------- FUNÇÃO DE TEMPLATE DO ITEM --------- */
 function templateItemCard(item) {
-  return `
-    <div class="flex p-6 bg-white rounded-md mb-4 items-center">
 
-      <h3 class="text-lg font-bold w-2/4">${item.nome}</h3>
+  let alerta = "";
 
-      <div class="flex w-3/4">
-        <p class="font-semibold">Desc:</p>
-        <p class="text-gray-500 ml-2">${item.descricao ?? ""}</p>
-      </div>
+  if (item.quantidade == 0) {
+    alerta = `
+      <span class="ml-2 px-2 py-1 text-xs border border-red-500 text-red-500 bg-red-100 rounded-full">
+        Indisponível
+      </span>
+    `;
+  } else if (item.quantidade_min && item.quantidade <= item.quantidade_min) {
+    alerta = `
+      <span class="ml-2 px-2 py-1 text-xs border border-yellow-500 text-yellow-600 bg-yellow-100 rounded-full">
+        Baixo Estoque
+      </span>
+    `;
+  }
 
-      <div class="flex w-2/4">
-        <p class="font-semibold">Quantidade:</p>
-        <p class="text-gray-500 ml-2">${item.quantidade ?? ""}</p>
-      </div>
+return `
+<div class="flex items-center p-4 bg-white rounded-md mb-4 gap-2">
 
-      <div class="flex w-3/4">
-        <p class="font-semibold">Criado em:</p>
-        <p class="text-gray-500 ml-2">${formatarDataHora(item.data_criacao)}</p>
-      </div>
+  <div class="flex items-center gap-2 font-bold text-lg w-3/12 whitespace-nowrap overflow-hidden">
+    <span class="truncate">${item.nome}</span>
+    ${alerta}
+  </div>
 
-      <div class="items-center w-2/4 flex gap-2">
+  <div class="w-4/12">
+    <p class="font-semibold text-sm inline">Desc:</p>
+    <p class="text-gray-500 text-sm inline truncate ml-1">
+      ${item.descricao ?? ""}
+    </p>
+  </div>
 
-        <button
-          onclick="excluirItem(${item.id_item})"
-          class="px-3 py-1 rounded"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-              class="w-8 h-6 text-black">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21
-                c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
-                a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077
-                L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12
-                .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397
-                m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32
-                0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667
-                0 00-7.5 0" />
-          </svg>
-        </button>
+  <div class="w-1/12">
+    <p class="font-semibold text-sm">Qtd:</p>
+    <p class="text-gray-500 text-sm">${item.quantidade ?? ""}</p>
+  </div>
 
-        <button
-          class="px-3 border border-orange-400 text-orange-400 py-1 rounded"
-          data-id="${item.id_item}"
-          data-nome="${item.nome}"
-          data-quantidade="${item.quantidade}"
-          data-descricao="${item.descricao ?? ''}"
-          onclick="abrirModalEdicao(this)"
-        >
-          Editar
-        </button>
+  <div class="w-2/12">
+    <p class="font-semibold text-sm">Criado em:</p>
+    <p class="text-gray-500 text-sm">${formatarDataHora(item.data_criacao)}</p>
+  </div>
 
-      </div>
-    </div>
-  `;
+  <div class="flex gap-2 w-2/12 justify-end">
+    <button
+      onclick="excluirItem(${item.id_item})"
+      class="px-2 py-1 rounded"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="w-6 h-6 text-black">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21
+          c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
+          a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077
+          L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12
+          .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397
+          m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32
+          0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667
+          0 00-7.5 0" />
+      </svg>
+    </button>
+
+    <button
+      class="px-2 py-1 border border-orange-400 text-orange-400 rounded hover:bg-orange-50"
+      data-id="${item.id_item}"
+      data-nome="${item.nome}"
+      data-quantidade="${item.quantidade}"
+      data-descricao="${item.descricao ?? ''}"
+      onclick="abrirModalEdicao(this)"
+    >
+      Editar
+    </button>
+  </div>
+</div>
+`;
+
 }
 
 async function carregarEstoque() {
