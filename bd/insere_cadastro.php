@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../cadastro.php");
     exit;
@@ -30,6 +32,12 @@ try {
     $stmt->bindValue(':senha', $senha_hash);
 
     $stmt->execute();
+    // PEGAR O ID DO USUÁRIO INSERIDO
+    $user_id = $pdo->lastInsertId();
+
+    // SALVAR NA SESSÃO
+    $_SESSION['user_id'] = $user_id;
+
 
     // Sucesso: Redireciona para 'seleciona.php' com mensagem GET
     $msg = urlencode("Usuário **" . htmlspecialchars($email) . "** cadastrado com sucesso! ID: " . $pdo->lastInsertId());
@@ -44,7 +52,7 @@ try {
     } else {
         $msg = urlencode("Erro de BD: " . $e->getMessage());
     }
-    header("Location: index.php?status=error&msg={$msg}");
+    header("Location: ../index.php?status=error&msg={$msg}");
     exit;
 }
 ?>

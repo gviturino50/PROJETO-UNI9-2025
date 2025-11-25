@@ -8,7 +8,7 @@
   </head>
 
   <?php
-    include "topbar.html";
+    include "topbar.php";
   ?>
 
   <main class="flex flex-col gap-20 my-36 px-4 max-w-6xl mx-auto">

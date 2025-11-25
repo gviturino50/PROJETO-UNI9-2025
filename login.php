@@ -14,7 +14,6 @@
       Por favor, insira o e-mail e senha da sua conta para acessar.
     </p>
 
-    <!-- FORMULÁRIO FUNCIONAL -->
     <form method="post" action="bd/login.php">
       <div class="mb-4">
         <label class="block text-gray-800 mb-1 font-medium">E-mail</label>
@@ -74,8 +73,6 @@
         </button>
       </div>
     </form>
-    <!-- FIM FORMULÁRIO -->
-
   </div>
 
 </body>

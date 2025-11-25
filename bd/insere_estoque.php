@@ -9,24 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once 'conecta.php'; // ajuste o caminho se necessário
 
-// Garante que veio via POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../estoque.php?status=error&msg=Método inválido");
-    exit;
-}
-
 $nome = trim($_POST['nome'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
 $quantidade = intval($_POST['quantidade'] ?? 0);
 $quantidade_min = intval($_POST['quantidade_min'] ?? 0);
 
 $id_user = $_SESSION['user_id'];
-
-// Validação simples
-if (empty($nome) || $quantidade <= 0) {
-    header("Location: ../estoque.php?status=error&msg=Preencha os campos obrigatórios");
-    exit;
-}
 
 try {
     $query = "INSERT INTO estoque (id_user, nome, descricao, quantidade, quantidade_min)
