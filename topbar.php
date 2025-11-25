@@ -1,7 +1,10 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-if (!isset($_SESSION['user_id'])) {
+
+if (count($_SESSION)==0) {
     // Usuário NÃO logado
     echo '
     <header class="fixed top-0 left-0 w-full text-white shadow-md z-50 bg-white p-2">

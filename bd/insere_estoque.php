@@ -2,12 +2,12 @@
 session_start();
 
 // Verifica se o usuário está logado
-if (!isset($_SESSION['user_id'])) {
+if (count($_SESSION)==0) {
     header("Location: login.php?status=error&msg=Faça login primeiro");
     exit;
 }
 
-require_once 'conecta.php'; // ajuste o caminho se necessário
+require_once 'conecta.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');

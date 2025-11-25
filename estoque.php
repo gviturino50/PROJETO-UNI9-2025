@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Se não tiver usuário logado, redireciona
+if (count($_SESSION)==0) {
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
