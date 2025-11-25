@@ -15,12 +15,7 @@ try {
         $msg = urlencode("Item atualizado com sucesso");
         header("Location: ../estoque.php?status=success&msg={$msg}");
         exit;
-    } else {
-        $msg = urlencode("Erro ao atualizar o item");
-        header("Location: ../estoque.php?status=error&msg={$msg}");
-        exit;
-    }
-
+    } 
 } catch (PDOException $e) {
     $msg = urlencode("Erro ao atualizar: " . $e->getMessage());
     header("Location: ../estoque.php?status=error&msg={$msg}");

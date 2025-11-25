@@ -1,13 +1,6 @@
 <?php
 session_start();
 
-// Verifica se o usuário está logado
-if (count($_SESSION) == 0) {
-    $msg = urlencode("Faça login primeiro");
-    header("Location: login.php?status=error&msg={$msg}");
-    exit;
-}
-
 require_once 'conecta.php';
 
 $nome = trim($_POST['nome'] ?? '');
@@ -26,12 +19,7 @@ try {
         $msg = urlencode("Item '$nome' cadastrado com sucesso!");
         header("Location: ../estoque.php?status=success&msg={$msg}");
         exit;
-    } else {
-        $msg = urlencode("Erro ao inserir o item.");
-        header("Location: ../estoque.php?status=error&msg={$msg}");
-        exit;
     }
-
 } catch (PDOException $e) {
     $msg = urlencode("Erro ao inserir: " . $e->getMessage());
     header("Location: ../estoque.php?status=error&msg={$msg}");
